@@ -24,7 +24,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.4</version>
+			<version>4.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -54,6 +54,13 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 		<sourceDirectory>src/main/scala</sourceDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <configuration>
+			          <encoding>UTF-8</encoding>
+			    </configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.scala-tools</groupId>
 				<artifactId>maven-scala-plugin</artifactId>
 				<executions>
@@ -64,7 +71,9 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 							</args>
 						</configuration>
 						<goals>
+							<goal>add-source</goal>
 							<goal>compile</goal>
+							<goal>testCompile</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -72,8 +81,12 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 					<args>
 						<arg>-target:jvm-1.5</arg>
 					</args>
-					<mainClass>hello.HelloWorld</mainClass>
+					<mainClass>Main</mainClass>
 					<scalaVersion>${scala.version}</scalaVersion>
+					<jvmArgs>
+						<jvmArg>-Xms64m</jvmArg>
+						<jvmArg>-Xmx512m</jvmArg>
+					</jvmArgs>
 				</configuration>
 			</plugin>
 		</plugins>
