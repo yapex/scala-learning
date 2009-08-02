@@ -6,12 +6,19 @@ import Assert._
  * @see http://www.haskell.org/haskellwiki/99_Haskell_exercises
  */
 class TestNinetyNineProblems {
-	@Test def x_8_compress {
-		def compress[A](list:List[A]):List[A] = {
-			list
+	@Test def x_9_pack {
+		
+		assertEquals(1,2)
+	}
+	@Test def x_8_eliminate_duplicates {
+		def compress[A](list:List[A]):List[A] = list match {
+			case head::Nil => List(head)
+			case head1::head2::tail if head1 == head2 => compress(head2::tail)
+			case head::tail => head::compress(tail)
+			case Nil => Nil
 		}
-		val myList = List(1,1,2,2,3,3,4,4)
-		assertEquals(List(1,2,3,4),compress(myList))
+		val myList = List('a','a','a','a','b','c','c','a','a','d','e','e','e','e')
+		assertEquals(List('a','b','c','a','d','e'),compress(myList))
 	}
 	
 	@Test def x_7_flatten_a_list {
